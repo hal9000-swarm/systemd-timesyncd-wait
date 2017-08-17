@@ -17,14 +17,21 @@ So, I'm introducing systemd-timesyncd-wait.  It is a service that
 listens for messages from systemd-timesyncd, and block until it sees a
 message indicating that systemd-timesyncd has synchronized the time.
 
-### Requirements
+# Installation
 
-	go > 1.4
-	make
+To compile systemd-timesyncd-wait, you will need the following
 
+ - Go >= 1.4
+ - GNU Make
 
-### Installation
+The only run-time dependencies are systemd (obviously), and the `rm`
+program.
 
-Clone the repo and execute:
+To install, simply grab a copy of the repo, and run `make install`,
+with any configuration options specified as arguments:
 
-	make && make install
+	make prefix=/usr install
+
+Of course, the desired value `prefix=` depends on your system.  Arch
+and Parabola users will be most happy with `prefix=/usr`,
+Ubuntu Xenial users will want to set `prefix=/`.

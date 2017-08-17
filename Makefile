@@ -1,4 +1,4 @@
-prefix = /
+prefix = /usr/local
 rootprefix = $(prefix)
 rootlibexecdir = $(rootprefix)/lib/systemd
 systemunitdir=$(rootprefix)/lib/systemd/system
