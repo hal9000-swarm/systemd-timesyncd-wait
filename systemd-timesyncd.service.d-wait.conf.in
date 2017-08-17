@@ -8,4 +8,5 @@ ExecStart=
 ExecStart=@rootlibexecdir@/systemd-timesyncd-wrap @TIMESYNCD_PATH@
 ExecStopPost=@RM@ -f -- /run/timesyncd/notify.sock
 ExecStartPre=@RM@ -f -- /run/timesyncd/notify.sock
+ReadWritePaths=/run/timesyncd
 NotifyAccess=all
