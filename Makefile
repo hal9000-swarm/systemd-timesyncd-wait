@@ -40,3 +40,6 @@ $(DESTDIR)$(systemunitdir)/%: $(srcdir)/%
 	install -DTm644 $< $@
 $(DESTDIR)$(systemunitdir)/systemd-timesyncd.service.d/wait.conf: $(outdir)/systemd-timesyncd.service.d-wait.conf
 	install -DTm644 $< $@
+
+.SECONDARY:
+.DELETE_ON_ERROR:
