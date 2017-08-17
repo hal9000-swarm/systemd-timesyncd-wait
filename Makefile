@@ -1,9 +1,23 @@
-files.out.all += systemd-timesyncd-wait systemd-timesyncd-wrap
-files.sys.all += /usr/lib/systemd/systemd-timesyncd-wait
-files.sys.all += /usr/lib/systemd/systemd-timesyncd-wrap
-files.sys.all += /usr/lib/systemd/system/systemd-timesyncd-wait.socket
-files.sys.all += /usr/lib/systemd/system/systemd-timesyncd-wait.service
-files.sys.all += /usr/lib/systemd/system/systemd-timesyncd.service.d/wait.conf
+prefix = /usr
+rootprefix = $(prefix)
+rootlibexecdir = $(rootprefix)/lib/systemd
+systemunitdir=$(rootprefix)/lib/systemd/system
+
+TIMESYNCD_PATH = $(rootlibexecdir)/systemd-timesyncd
+RM = /usr/bin/rm
+
+####
+
+files.out.all += systemd-timesyncd-wait
+files.out.all += systemd-timesyncd-wrap
+files.out.all += systemd-timesyncd.service.d-wait.conf
+files.out.all += systemd-timesyncd-wait.service
+
+files.sys.all += $(rootlibexecdir)/systemd-timesyncd-wait
+files.sys.all += $(rootlibexecdir)/systemd-timesyncd-wrap
+files.sys.all += $(systemunitdir)/systemd-timesyncd-wait.socket
+files.sys.all += $(systemunitdir)/systemd-timesyncd-wait.service
+files.sys.all += $(systemunitdir)/systemd-timesyncd.service.d/wait.conf
 
 outdir = .
 srcdir = .
@@ -16,9 +30,13 @@ install: $(addprefix $(DESTDIR),$(files.sys.all))
 $(outdir)/%: $(srcdir)/%.go
 	go build -o $@ $<
 
-$(DESTDIR)/usr/lib/systemd/%: $(outdir)/%
+vars = rootlibexecdir TIMESYNCD_PATH RM
+$(outdir)/%: $(srcdir)/%.in
+	sed $(foreach v,$(vars),-e 's|@$v@|$($v)|g') < $< > $@
+
+$(DESTDIR)$(rootlibexecdir)/%: $(outdir)/%
 	install -DTm755 $< $@
-$(DESTDIR)/usr/lib/systemd/system/%: $(srcdir)/%
+$(DESTDIR)$(systemunitdir)/%: $(srcdir)/%
 	install -DTm644 $< $@
-$(DESTDIR)/usr/lib/systemd/system/systemd-timesyncd.service.d/wait.conf: systemd-timesyncd.service.d-wait.conf
+$(DESTDIR)$(systemunitdir)/systemd-timesyncd.service.d/wait.conf: $(outdir)/systemd-timesyncd.service.d-wait.conf
 	install -DTm644 $< $@

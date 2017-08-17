@@ -1,0 +1,11 @@
+[Unit]
+Wants=systemd-timesyncd-wait.socket systemd-timesyncd-wait.service
+After=systemd-timesyncd-wait.socket
+
+[Service]
+Sockets=
+ExecStart=
+ExecStart=@rootlibexecdir@/systemd-timesyncd-wrap @TIMESYNCD_PATH@
+ExecStopPost=@RM@ -f -- /run/timesyncd/notify.sock
+ExecStartPre=@RM@ -f -- /run/timesyncd/notify.sock
+NotifyAccess=all

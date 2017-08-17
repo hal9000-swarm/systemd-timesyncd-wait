@@ -1,2 +1,4 @@
 /systemd-timesyncd-wait
 /systemd-timesyncd-wrap
+/systemd-timesyncd.service.d-wait.conf
+/systemd-timesyncd-wait.service
