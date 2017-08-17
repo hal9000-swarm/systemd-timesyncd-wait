@@ -1,10 +1,10 @@
-prefix = /usr
+prefix = /
 rootprefix = $(prefix)
 rootlibexecdir = $(rootprefix)/lib/systemd
 systemunitdir=$(rootprefix)/lib/systemd/system
 
 TIMESYNCD_PATH = $(rootlibexecdir)/systemd-timesyncd
-RM = /usr/bin/rm
+RM = /bin/rm
 
 ####
 
