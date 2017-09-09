@@ -4,10 +4,12 @@ rootlibexecdir = $(rootprefix)/lib/systemd
 systemunitdir=$(rootprefix)/lib/systemd/system
 
 systemd_version = $(shell systemctl --version|sed -n '1{s/\S*\s\s*//;s/\s.*//;p}')
+ge = $(shell test '$1' -ge '$2' && echo yes)
 
 TIMESYNCD_PATH = $(rootlibexecdir)/systemd-timesyncd
 RM = /bin/rm
-INFINITY = $(shell if test $(systemd_version) -ge 229; then echo infinity; else echo 0; fi)
+INFINITY       = $(if $(call ge,$(systemd_version),229),infinity,0)
+ReadWritePaths = $(if $(call ge,$(systemd_version),231),ReadWritePaths,ReadWriteDirectories)
 
 ####
 
@@ -33,7 +35,7 @@ install: $(addprefix $(DESTDIR),$(files.sys.all))
 $(outdir)/%: $(srcdir)/%.go
 	go build -o $@ $<
 
-vars = rootlibexecdir TIMESYNCD_PATH RM INFINITY
+vars = rootlibexecdir TIMESYNCD_PATH RM INFINITY ReadWritePaths
 $(outdir)/%: $(srcdir)/%.in
 	sed $(foreach v,$(vars),-e 's|@$v@|$($v)|g') < $< > $@
 
