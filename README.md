@@ -1,3 +1,8 @@
+ > Notice: The latest versions of systemd in git (after v238) have
+ > systemd-time-wait-sync.service; presumably it will be present in
+ > systemd-239.  If you have systemd v239 or greater, you should use
+ > systemd-time-sync-wait instead.
+
 Proper time-sync.target support for systemd-timesyncd
 
 This package essentially just works around
