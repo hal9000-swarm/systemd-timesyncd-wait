@@ -14,8 +14,8 @@ It would be trivial to patch timesyncd to wait, but that would
 introduce some other problems.
 
 So, I'm introducing systemd-timesyncd-wait.  It is a service that
-listens for messages from systemd-timesyncd, and block until it sees a
-message indicating that systemd-timesyncd has synchronized the time.
+listens for messages from systemd-timesyncd, and blocks until it sees
+a message indicating that systemd-timesyncd has synchronized the time.
 
 # Installation
 
