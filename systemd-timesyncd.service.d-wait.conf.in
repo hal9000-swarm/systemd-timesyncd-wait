@@ -5,8 +5,9 @@ After=systemd-timesyncd-wait.socket
 [Service]
 Sockets=
 ExecStart=
-ExecStart=@rootlibexecdir@/systemd-timesyncd-wrap @TIMESYNCD_PATH@
+ExecStart=@BANGBANG@@rootlibexecdir@/systemd-timesyncd-wrap @TIMESYNCD_PATH@
 ExecStopPost=@RM@ -f -- /run/timesyncd/notify.sock
 ExecStartPre=@RM@ -f -- /run/timesyncd/notify.sock
+ExecStartPre=@BANGCHOWN@ systemd-timesync /run/timesyncd
 @ReadWritePaths@=/run/timesyncd
 NotifyAccess=all

@@ -8,8 +8,11 @@ ge = $(shell test '$1' -ge '$2' && echo yes)
 
 TIMESYNCD_PATH = $(rootlibexecdir)/systemd-timesyncd
 RM = /bin/rm
+CHOWN = /bin/chown
 INFINITY       = $(if $(call ge,$(systemd_version),229),infinity,0)
 ReadWritePaths = $(if $(call ge,$(systemd_version),231),ReadWritePaths,ReadWriteDirectories)
+BANGBANG       = $(if $(call ge,$(systemd_version),235),!!,)
+BANGCHOWN      = $(if $(call ge,$(systemd_version),235),+$(CHOWN),/bin/true)
 
 ####
 
@@ -35,7 +38,7 @@ install: $(addprefix $(DESTDIR),$(files.sys.all))
 $(outdir)/%: $(srcdir)/%.go
 	go build -o $@ $<
 
-vars = rootlibexecdir TIMESYNCD_PATH RM INFINITY ReadWritePaths
+vars = rootlibexecdir TIMESYNCD_PATH RM INFINITY ReadWritePaths BANGBANG BANGCHOWN
 $(outdir)/%: $(srcdir)/%.in
 	sed $(foreach v,$(vars),-e 's|@$v@|$($v)|g') < $< > $@
 
