@@ -1,13 +1,13 @@
 #!/bin/bash
 cp systemd/{systemd-timesyncd-wait,systemd-timesyncd-wrap} /lib/systemd/
-chmod 755 /tmp/lib/systemd/systemd-timesyncd-wait /lib/systemd/systemd-timesyncd-wrap
+chmod 755 /lib/systemd/systemd-timesyncd-wait /lib/systemd/systemd-timesyncd-wrap
 
 cp systemd/system/{systemd-timesyncd-wait.socket,systemd-timesyncd-wait.service} /lib/systemd/system
-chmod 644 /tmp/lib/systemd/system/systemd-timesyncd-wait.socket /lib/systemd/system/systemd-timesyncd-wait.service
+chmod 644 /lib/systemd/system/systemd-timesyncd-wait.socket /lib/systemd/system/systemd-timesyncd-wait.service
 
 mkdir /lib/systemd/system/systemd-timesyncd.service.d/
 cp systemd/system/systemd-timesyncd.service.d/wait.conf /lib/systemd/system/systemd-timesyncd.service.d/wait.conf
-chmod 644 /tmp/lib/systemd/system/systemd-timesyncd.service.d/wait.conf
+chmod 644 /lib/systemd/system/systemd-timesyncd.service.d/wait.conf
 
 
 systemctl stop systemd-timesyncd
