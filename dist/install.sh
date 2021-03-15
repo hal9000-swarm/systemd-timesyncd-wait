@@ -1,12 +1,12 @@
 #!/bin/bash
-cp systemd/{systemd-timesyncd-wait,systemd-timesyncd-wrap} /tmp/lib/systemd/
-chmod 755 /tmp/lib/systemd/systemd-timesyncd-wait /tmp/lib/systemd/systemd-timesyncd-wrap
+cp systemd/{systemd-timesyncd-wait,systemd-timesyncd-wrap} /lib/systemd/
+chmod 755 /tmp/lib/systemd/systemd-timesyncd-wait /lib/systemd/systemd-timesyncd-wrap
 
-cp systemd/system/{systemd-timesyncd-wait.socket,systemd-timesyncd-wait.service} /tmp/lib/systemd/system
-chmod 644 /tmp/lib/systemd/system/systemd-timesyncd-wait.socket /tmp/lib/systemd/system/systemd-timesyncd-wait.service
+cp systemd/system/{systemd-timesyncd-wait.socket,systemd-timesyncd-wait.service} /lib/systemd/system
+chmod 644 /tmp/lib/systemd/system/systemd-timesyncd-wait.socket /lib/systemd/system/systemd-timesyncd-wait.service
 
-mkdir /tmp/lib/systemd/system/systemd-timesyncd.service.d/
-cp systemd/system/systemd-timesyncd.service.d/wait.conf /tmp/lib/systemd/system/systemd-timesyncd.service.d/wait.conf
+mkdir /lib/systemd/system/systemd-timesyncd.service.d/
+cp systemd/system/systemd-timesyncd.service.d/wait.conf /lib/systemd/system/systemd-timesyncd.service.d/wait.conf
 chmod 644 /tmp/lib/systemd/system/systemd-timesyncd.service.d/wait.conf
 
 
